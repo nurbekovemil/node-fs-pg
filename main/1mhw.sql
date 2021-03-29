@@ -145,10 +145,11 @@ SELECT distinct Salary from worker a WHERE 3 >= (SELECT count(distinct Salary) f
 -- 47
 SELECT distinct Salary from worker a WHERE 3 >= (SELECT count(distinct Salary) from worker b WHERE a.Salary >= b.Salary) order by a.Salary desc;
 -- 48
-
+SELECT distinct Salary from worker a WHERE 6 >= (SELECT count(distinct Salary) from worker b WHERE a.Salary <= b.Salary) order by a.Salary desc
 -- 49
-
+ SELECT DEPARTMENT, sum(Salary) from worker group by DEPARTMENT;
 -- 50
+SELECT FIRST_NAME, SALARY from Worker WHERE SALARY=(SELECT max(SALARY) from Worker);
 
 
 
