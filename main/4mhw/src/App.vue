@@ -4,7 +4,6 @@
     <b-container>
       <router-view/>
     </b-container>
-    <!-- teststststs -->
   </div>
 </template>
 
