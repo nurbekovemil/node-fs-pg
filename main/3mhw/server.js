@@ -15,6 +15,7 @@ fastify.addContentTypeParser('application/json', {
           done(err, undefined)
         }
   })
+  .register(require('fastify-cors'), {})
   .register(require('./routes/userRouter'), {
     prefix: '/api/user'
   })

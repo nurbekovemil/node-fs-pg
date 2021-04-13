@@ -3,7 +3,7 @@ const client = require('../conf/db')
 const getFavoritesController = async (req, res) => {
   try {
     await client.query(`SELECT * FROM FAVORITES WHERE USER_ID = $1`,[req.user.user_id], (err, results) => {
-      if(err) return res.status(400).send({msg: 'Пусто! добавьте товар в избранное!'})
+      if(err) return res.status(400).send({msg: 'Ошибка при получении данных!'})
       res.status(200).send({products: results.rows})
     })
   } catch (error) {

@@ -42,4 +42,16 @@ const userRegisterController = async(req, res) => {
     res.status(400).send({msg: err})
   }
 }
-module.exports = {userRegisterController, userLoginController}
+
+const userAuthController = async (req, res) => {
+  try {
+    await client.query('SELECT * FROM USERS WHERE USER_ID = $1', [req.user.user_id], (err, results) => {
+      if(err) return res.status(400).send({msg: err})
+      const token = generateJwt(results.rows[0].user_id)
+      res.status(200).send({token, user: results.rows[0]})
+    })
+  } catch (error) {
+    
+  }
+}
+module.exports = {userRegisterController, userLoginController, userAuthController}
