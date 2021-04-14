@@ -1,11 +1,14 @@
 <template lang="">
   <div>
-    User page
+    <favorites-component/>
   </div>
 </template>
 <script>
+import {FavoritesComponent} from '../components'
 export default {
-  
+  components:{
+    FavoritesComponent
+  }
 }
 </script>
 <style lang="">

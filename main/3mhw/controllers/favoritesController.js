@@ -2,7 +2,12 @@ const client = require('../conf/db')
 
 const getFavoritesController = async (req, res) => {
   try {
-    await client.query(`SELECT * FROM FAVORITES WHERE USER_ID = $1`,[req.user.user_id], (err, results) => {
+    await client.query(`
+      SELECT  
+      F.PRODUCT_ID, P.PRODUCT_NAME
+      FROM FAVORITES F 
+      INNER JOIN PRODUCTS P
+      ON F.PRODUCT_ID = P.PRODUCT_ID WHERE F.USER_ID = $1`,[req.user.user_id], (err, results) => {
       if(err) return res.status(400).send({msg: 'Ошибка при получении данных!'})
       res.status(200).send({products: results.rows})
     })
@@ -25,4 +30,15 @@ const addFavoritesController = async (req, res) => {
   }
 }
 
-module.exports = {getFavoritesController, addFavoritesController}
+const removeFavoritesController = async (req, res) => {
+  try {
+    await client.query('DELETE FROM FAVORITES WHERE PRODUCT_ID = $1', [req.params.id], (err, results) => {
+      if(err) return res.status(400).send({msg: err})
+      res.status(200).send({msg: 'Товар успешно удален!'})
+    })
+  } catch (error) {
+    
+  }
+}
+
+module.exports = {getFavoritesController, addFavoritesController, removeFavoritesController}
