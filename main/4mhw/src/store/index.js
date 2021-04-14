@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {products, auth, categories} from './modules'
+import {products, auth, categories, favorites} from './modules'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
   state:{
     isLoading: true,
+
   },
   mutations:{
     SET_IS_LOADING(state, data){
@@ -20,6 +21,7 @@ export default new Vuex.Store({
   modules:{
     products,
     auth,
-    categories
+    categories,
+    favorites
   }
 })

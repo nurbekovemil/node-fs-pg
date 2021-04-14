@@ -12,7 +12,10 @@
         <b-card-text>
           category id: {{p.category_id}}
         </b-card-text>
-        <b-button variant="primary" align-self="end">В избранное</b-button>
+        <template v-if="getIsAuth">
+          <b-button class="mr-3" variant="primary" align-self="end" @click="addInFavorites(p.product_id)">В избранное</b-button>
+          <b-button variant="danger" align-self="end" @click="removeProduct(p.product_id)">Удалить</b-button>
+        </template>
       </b-card>
     </b-col>
   </b-row>
@@ -25,9 +28,15 @@ export default {
   components:{
     Loading
   },
-  computed: mapGetters(['getProducts', 'getIsLoading']),
+  computed: mapGetters(['getProducts', 'getIsLoading','getIsAuth']),
   methods: {
-    ...mapActions(["GET_ALL_PRODUCTS"])
+    ...mapActions(['GET_ALL_PRODUCTS', 'ADD_FAVORITES', 'REMOVE_PRODUCT']),
+    addInFavorites(id){
+      this.ADD_FAVORITES({product_id:id})
+    },
+    removeProduct(id){
+      this.REMOVE_PRODUCT(id)
+    }
   },
   async mounted(){
     await this.GET_ALL_PRODUCTS()

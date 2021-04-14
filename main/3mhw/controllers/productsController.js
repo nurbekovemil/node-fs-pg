@@ -20,10 +20,10 @@ const getProductsController = async(req, res) => {
     const category_id = req.params.id
     let products
     if(category_id) {
-      products = await client.query(`SELECT * FROM PRODUCTS WHERE CATEGORY_ID = $1`, [category_id])
+      products = await client.query(`SELECT * FROM PRODUCTS WHERE CATEGORY_ID = $1 ORDER BY PRODUCT_ID DESC`, [category_id])
       return res.status(200).send({products: products.rows})
     }
-    products = await client.query(`SELECT * FROM PRODUCTS`)
+    products = await client.query(`SELECT * FROM PRODUCTS ORDER BY PRODUCT_ID DESC`)
     res.status(200).send({products: products.rows})
   } catch(err) {
     return res.status(400).send({msg: err})
